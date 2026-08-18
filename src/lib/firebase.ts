@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, User, signOut } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { getFirestore, doc, getDocFromServer, setDoc, serverTimestamp } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 import { useState, useEffect } from 'react';
@@ -58,7 +58,7 @@ export function useAuth() {
   const signIn = async () => {
     try {
       setError(null);
-      await signInWithPopup(auth, googleProvider);
+      await signInWithRedirect(auth, googleProvider)
     } catch (err: any) {
       console.error("Google sign-in failed:", err);
       if (err.code === 'auth/admin-restricted-operation') {
